@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang='en' dir='ltr'>
+    <head>
+        <link rel='stylesheet' href='chatroom_style.css'>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+        <title>OSSP</title>
+    </head>
+    <body>
+        <div class="left">
+            <h1>SKKU CS CHAT</h1>
+            <h2>과목</h2>
+            <ul>
+                <li>오픈소스소프트웨어실습</li>
+                <li>운영체제</li>
+                <li>프로그래밍언어</li>
+                <li>알고리즘개론</li>
+            </ul>
+
+            <h2>분야</h2>
+            <ul>
+                <li>시스템</li>
+                <li>네트워크</li>
+                <li>인공지능</li>
+                <li>보안</li>
+                <li>HCI</li>
+            </ul>
+            <h2>기타</h2>
+            <ul>
+                <li>채팅방 참여</li>
+                <li>채팅방 퇴장</li>
+                <li>내 계정</li>
+                <li>설정</li>
+            </ul>
+
+        </div>
+        <div class="main">
+            <div class="chat_room_head">
+                <div class="chat_room_name">과목: 오픈소스소프트웨어실습</div>
+                <div class="chat_room_desc">오픈소스소프트웨어실습 과목 익명 채팅방입니다.</div>
+            </div>
+            <div class="chat_room_container">
+                <!-- <div class="chat_room_container"> -->
+                    <div class="chat_room">
+                        <div class="message_display">
+
+                            <div class="name_container">
+                                <span class="my_name">나</span>
+                            </div>
+
+                            <div class="message_container">
+                                <span class="my_message">안녕하세요!</span>
+                            </div>
+
+                            <div class="name_container">
+                                <span class="prof_name">교수 1</span>
+                            </div>
+
+                            <div class="message_container">
+                                <span class="prof_message">반갑습니다.</span>
+                            </div>
+                            
+                            <div class="name_container">
+                                <span class="student_name">학생 1</span>
+                            </div>
+
+                            <div class="message_container">
+                                <span class="student_message">이번 과제 제출 기한은 언제까지 인가요?</span>
+                            </div>
+                        </div>
+                        <div class="message_input">
+                            <!-- <input type="text"> -->
+                            <textarea id="message_typing_area" type="text" rows="1" cols="50"></textarea>
+                            <button class="btn btn-dark send_btn">전송</button>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </body>
+</html>
