@@ -1,0 +1,127 @@
+body {
+    padding: 0 10%;
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+
+.left {
+    background-color: cadetblue;
+    width: 20%;
+    min-height: 100%;
+}
+
+.main {
+    width: 80%;
+    min-height: 100%;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.chat_room_head {
+    height: 15%;
+}
+
+.chat_room_name {
+    font-size: xx-large;
+}
+
+.chat_room_desc {
+    font-size: small;
+}
+
+.chat_room_container {
+    background-color: grey;
+    height: 85%;
+    padding: 3%;
+    /* min-height: 100% */
+}
+
+.chat_room {
+    /* margin: 5%; */
+    height: 100%;
+    background-color: white;
+    overflow-y: auto;
+}
+
+.message_display {
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    padding: 3% 0;
+}
+
+.message_input {
+    height: 20%;
+}
+
+.message_container, .name_container{
+    clear: both;
+}
+
+
+.my_name, .my_message, .prof_name, .prof_message, .student_name, .student_message {
+    margin: 5px 10px;
+}
+
+.my_name, .my_message {
+    float: right;
+}
+
+/* .my_message:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-left-color: chartreuse;
+	border-right: 0;
+	margin-top: -10px;
+	margin-right: -10px;
+} */
+
+.prof_name, .prof_message, .student_name, .student_message {
+    float: left;
+}
+
+.my_message, .prof_message, .student_message {
+    padding: 5px;
+}
+
+.my_message, .prof_message, .student_message {
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.my_message {
+    background-color: chartreuse;
+}
+
+.prof_message {
+    background-color: gold;
+}
+
+.student_message {
+    background-color: beige;
+}
+
+.message_input {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#message_typing_area {
+    resize: none;
+    overflow-y: auto;
+    min-height: 100px;
+    max-height: 200px;
+    width: 80%;
+}
+
+.send_btn {
+    width: 15%;
+}
