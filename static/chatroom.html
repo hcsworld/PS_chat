@@ -71,11 +71,14 @@
                         <div class="message_input">
                             <!-- <input type="text"> -->
                             <textarea id="message_typing_area" type="text" rows="1" cols="50"></textarea>
-                            <button class="btn btn-dark send_btn">전송</button>
+                            <button class="btn btn-dark send_btn" id="send_btn">전송</button>
                         </div>
                     </div>
                 <!-- </div> -->
             </div>
         </div>
+        <!-- <script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI" crossorigin="anonymous"></script> -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="chatroom.js"></script>
     </body>
 </html>
