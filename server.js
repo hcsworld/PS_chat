@@ -34,13 +34,15 @@ app.get('/chat', (req, res) => {
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end(data);
     });
-
 });
 
 // first connection on server
 io.on('connection', (socket) => {
+    socket.on("hello", (arg) => {
+
+        console.log('socket :\n' + socket + "\n" + arg)
+    })
     // console.log('a user connected');
-    console.log('socket :\n' + socket)
 });
 
 httpServer.listen(port, () => {
