@@ -1,6 +1,4 @@
-import { io } from "socket.io-client";
-
-console.log('chatroom js connected')
+// console.log('chatroom js connected')
 
 const URL = "http://localhost:8000";
 const socket = io(URL + '/', { autoConnect: true });
