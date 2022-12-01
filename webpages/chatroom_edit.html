@@ -28,7 +28,7 @@
             width: 90%;
             height: 65%;
             margin-left: 5%;
-            margin-top: 1%;
+            margin-top: 4%;
         }
 
         #chat_room {
@@ -45,7 +45,8 @@
 
         .exit {
             width: 100px;
-            margin-bottom: 0%;
+            height: 45px;
+            margin-right: 10%;
         }
     </style>
 </head>
@@ -71,10 +72,13 @@
     </ul>
     <div class="container p-0" style="margin-left: 15%">
         <div>
-            <h2 class="pt-5 ps-5">OSSP Chating Room</h2>
+            <div class="d-flex">
+                <h2 class="pt-5 ps-5">OSSP Chating Room</h2>
+                <button type="button" class="btn btn-success exit mt-5 ms-auto mb-2">Exit</button>
 
+            </div>
             <div class=" d-flex flex-column content m-0 bg-success bg-opacity-10">
-                <button type="button" class="btn btn-success exit mt-4 ms-auto me-5" style="float:right">Exit</button>
+
                 <div class="chatroom_container bg-white">
                     <div class="m-3 flex-column">
                         <div>
