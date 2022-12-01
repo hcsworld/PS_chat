@@ -3,8 +3,10 @@ const express = require('express');
 const socketio = require("socket.io");
 const http = require('http');
 const fs = require("fs");
+const bodyParser = require('body-parser')
 const port = 8000
 
+const EMAIL = 'email'
 const PW = 'password'
 const ROLE = 'role'
 const STUDENT = 'student'
@@ -23,7 +25,7 @@ let ID_PW_DATA = {
         }
     },
 
-    'dlwns147' : {
+    'asdf' : {
         PW : '123456',
         ROLE : STUDENT,
         CHAT_NUMS : {
@@ -62,7 +64,6 @@ let CHAT_DATA = {
     ]
 }
 
-
 const app = express();
 const httpServer = http.createServer(app);
 const options = {
@@ -73,10 +74,12 @@ const io = socketio(httpServer, options);
 
 const publicDirectoryPath = path.join(__dirname, 'public')
 app.use(express.static(publicDirectoryPath))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 
-app.get('/', (req, res) => {
-    console.log('/')
+app.get('/log_in', (req, res) => {
+    console.log('/log_in')
     // res.sendFile(__dirname + '/chatroom.html');
     // res.sendFile(path.join(publicDirectoryPath, 'webpages', 'chatroom.html'));
 
@@ -87,6 +90,7 @@ app.get('/', (req, res) => {
         }
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end(data);
+    })
 });
 
 app.get('/sign_up', (req, res) => {
@@ -101,10 +105,37 @@ app.get('/sign_up', (req, res) => {
         }
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end(data);
+    })
 });
 
 app.post('/sign_up', (req, res) => {
     console.log(req.body);
+    data = req.body
+    new_email = data.EMAIL
+    new_pw = data.PW
+    new_role = data.ROLE
+    let request_status;
+    if (Object.keys(ID_PW_DATA).includes(new_email)) {
+        console.log("ID is duplicate")
+        res.writeHead(409);
+        res.end();
+    }
+    else {
+        console.log("ID is not duplicate")
+        ID_PW_DATA[new_email] = {
+            PW : new_pw,
+            ROLE : new_role,
+            CHAT_NUMS : {}
+        }
+        fs.readFile(path.join(__dirname, 'webpages', 'log_in.html'), (error, data) => {
+            if (error) {
+                console.log(error);
+                return res.status(500).send("<h1>500 Error</h1>");
+            }
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.end(data);
+        });
+    }
 })
 
 app.get('/main', (req, res) => {
@@ -140,12 +171,16 @@ app.get('/chat', (req, res) => {
 // first connection on server
 io.on('connection', (socket) => {
     socket.on("hello", (arg) => {
-
         console.log('socket :\n' + socket + "\n" + arg)
     })
+
+    // socket.on("sign_up", (data, callback) => {
+    //     console.log(data)
+    //     callback({status : request_status})
+    // })
     // console.log('a user connected');
 });
 
 httpServer.listen(port, () => {
     console.log('listening on *:' + port);
-});
+})
