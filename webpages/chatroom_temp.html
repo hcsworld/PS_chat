@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang='en' dir='ltr'>
+    <head>
+        <meta charset="UTF-8">
+        <!-- <link rel='stylesheet' href='chatroom_style.css'> -->
+        <link rel='stylesheet' href='/styles/chatroom.css'>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+        <title>OSSP</title>
+    </head>
+    <body>
+        <div class="left bg-dark text-white">
+            <h1 class="border-bottom">SKKU CS CHAT</h1>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="main" class="nav-link text-white" aria-current="page">
+                        <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg> -->
+                        Chat
+                    </a>
+                    <a href="#" class="nav-link text-white" aria-current="page">
+                        <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg> -->
+                        Enter
+                    </a>
+                    <a href="#" class="nav-link text-white" aria-current="page">
+                        <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg> -->
+                        Leave
+                    </a>
+                    <a href="#" class="nav-link text-white" aria-current="page">
+                        <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg> -->
+                        Log out
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="main">
+            <div class="header">
+                <div class="chat_room_name">과목: 오픈소스소프트웨어실습</div>
+                <div class="chat_room_desc">오픈소스소프트웨어실습 과목 익명 채팅방입니다.</div>
+            </div>
+            <div class="chat_room_container">
+                <!-- <div class="chat_room_container"> -->
+                    <div class="chat_room">
+                        <div class="message_display">
+
+                            <div class="name_container">
+                                <span class="my_name">나</span>
+                            </div>
+
+                            <div class="message_container">
+                                <span class="my_message">안녕하세요!</span>
+                            </div>
+
+                            <div class="name_container">
+                                <span class="prof_name">교수 1</span>
+                            </div>
+
+                            <div class="message_container">
+                                <span class="prof_message">반갑습니다.</span>
+                            </div>
+                            
+                            <div class="name_container">
+                                <span class="student_name">학생 1</span>
+                            </div>
+
+                            <div class="message_container">
+                                <span class="student_message">이번 과제 제출 기한은 언제까지 인가요?</span>
+                            </div>
+                        </div>
+                        <div class="message_input">
+                            <!-- <input type="text"> -->
+                            <textarea id="message_typing_area" type="text" rows="1" cols="50"></textarea>
+                            <button class="btn btn-dark send_btn" id="send_btn">전송</button>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+        <!-- <script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI" crossorigin="anonymous"></script> -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/chatroom.js"></script>
+        <!-- <script src="chatroom.js"></script> -->
+    </body>
+</html>

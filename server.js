@@ -4,6 +4,7 @@ const socketio = require("socket.io");
 const http = require('http');
 const fs = require("fs");
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser');
 const port = 8000
 
 const EMAIL = 'email'
@@ -64,19 +65,27 @@ let CHAT_DATA = {
     ]
 }
 
-const app = express();
-const httpServer = http.createServer(app);
-const options = {
-    'serveClient': true
-}
-// const io = new socketio.Server(server);
-const io = socketio(httpServer, options);
-
 const publicDirectoryPath = path.join(__dirname, 'public')
+const app = express();
+
+app.use(cookieParser("secret")); // cookieParser(secretKey, optionObj)
 app.use(express.static(publicDirectoryPath))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+const httpServer = http.createServer(app);
+const options = {'serveClient': true}
+// const io = new socketio.Server(server);
+const io = socketio(httpServer, options);
+
+const cookieConfig = {
+    httpOnly: true, 
+    maxAge: 1000 * 60 * 10,
+    signed: true,
+    domain: '/',
+    secure: false, //changes secure
+  };
+  
 
 app.get('/log_in', (req, res) => {
     console.log('/log_in')
@@ -88,7 +97,8 @@ app.get('/log_in', (req, res) => {
             console.log(error);
             return res.status(500).send("<h1>500 Error</h1>");
         }
-        res.writeHead(200, { "Content-Type": "text/html" });
+        res.writeHead(200, { "Content-Type": "text/html",
+        credentials : "include",});
         res.end(data);
     })
 });
@@ -122,24 +132,53 @@ app.post('/sign_up', (req, res) => {
     }
     else {
         console.log("ID is not duplicate")
+        res.writeHead(200);
+        res.end();
         ID_PW_DATA[new_email] = {
             PW : new_pw,
             ROLE : new_role,
             CHAT_NUMS : {}
         }
-        fs.readFile(path.join(__dirname, 'webpages', 'log_in.html'), (error, data) => {
-            if (error) {
-                console.log(error);
-                return res.status(500).send("<h1>500 Error</h1>");
-            }
-            res.writeHead(200, { "Content-Type": "text/html" });
-            res.end(data);
-        });
+
+    }
+})
+
+app.post('/main', (req, res) => {
+    console.log(req.body);
+    data = req.body
+    let email = data.EMAIL
+    let pw = data.PW
+
+    if (Object.keys(ID_PW_DATA).includes(email) && ID_PW_DATA[email].PW === pw) {
+        // res.writeHead(200);
+        // res.writeHead(200, { "Content-Type": "text/html" });
+        res.cookie(EMAIL, email, cookieConfig);
+        // res.redirect('/main')
+        res.end();
+
+        // fs.readFile(path.join(__dirname, 'webpages', 'main.html'), (error, data) => {
+        //     if (error) {
+        //         console.log(error);
+        //         return res.status(500).send("<h1>500 Error</h1>");
+        //     }
+        //     // res.set( "Content-Type", "text/html")
+        //     res.writeHead(200, { "Content-Type": "text/html" });
+            
+        //     res.cookie(EMAIL, email, cookieConfig);
+        //     res.end(data);
+        // });
+    }
+    else {
+        res.writeHead(409);
+        res.end();
     }
 })
 
 app.get('/main', (req, res) => {
     console.log('main')
+    // console.log(req)
+    console.log(req.cookies)
+    console.log(req.cookies[EMAIL])
     // res.sendFile(__dirname + '/chatroom.html');
     // res.sendFile(path.join(publicDirectoryPath, 'webpages', 'chatroom.html'));
 

@@ -19,9 +19,9 @@ const sign_up_btn = document.querySelector("#sign_up_btn")
 sign_up_btn.addEventListener("click", (evt)=> {
 
     evt.preventDefault()
-    email = document.querySelector("#email").value
-    password = document.querySelector("#password").value
-    password_check = document.querySelector("#password_check").value
+    let email = document.querySelector("#email").value
+    let password = document.querySelector("#password").value
+    let password_check = document.querySelector("#password_check").value
     if (!validateEmail(email)) {
         alert("Please input correct email address.")
     }
@@ -48,9 +48,10 @@ sign_up_btn.addEventListener("click", (evt)=> {
             },
             body: JSON.stringify(data),
         }).then((response) => {
-            // console.log(response)
-            if (response.status == '200') {
-                fetch(URL + '/log_in')
+            console.log(response.status)
+            if (response.status === 200) {
+                window.location.replace(URL + '/log_in')
+                // fetch(URL + '/log_in', {method: 'GET'})
             }
             else {
                 alert('Your e-mail is used already!')
