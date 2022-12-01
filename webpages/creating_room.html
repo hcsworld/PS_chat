@@ -23,6 +23,18 @@
         .form-control {
             width: 320px;
         }
+
+        .field {
+            margin-left: 34%;
+        }
+
+        .field2 {
+            margin-left: 43%;
+        }
+
+        .field3 {
+            margin-left: 44%;
+        }
     </style>
 </head>
 
@@ -47,41 +59,37 @@
     </ul>
     <div class="container p-0" style="margin-left: 15%">
         <div>
-            <h2 class="pt-5 ps-5">My account</h2>
+            <h2 class="pt-5 ps-5">Create Chating Room</h2>
             <div>
                 <div class=" d-flex flex-column content m-0 bg-success bg-opacity-10">
-                    <div class="d-inline-flex flex-row align-items-center">
+                    <div class="d-inline-flex flex-row align-items-center field" style="margin-top:15%;">
                         <div class="form-floating m-3">
                             <textarea class="form-control" placeholder="Leave a comment here"
                                 id="floatingTextarea"></textarea>
-                            <label for="floatingTextarea">Comments</label>
+                            <label for="floatingTextarea">Room name</label>
                         </div>
-                        <button type="button" class="btn btn-success btn-sm" style="height: 50px">Success</button>
                     </div>
-                    <div class="d-inline-flex flex-row align-items-center">
+                    <div class="d-inline-flex flex-row align-items-center field">
                         <div class="form-floating m-3">
                             <textarea class="form-control" placeholder="Leave a comment here"
                                 id="floatingTextarea"></textarea>
-                            <label for="floatingTextarea">Comments</label>
+                            <label for="floatingTextarea">Code for enter</label>
                         </div>
-                        <button type="button" class="btn btn-success btn-sm" style="height: 50px">Success</button>
                     </div>
-                    <div class="d-inline-flex flex-row align-items-center">
-                        <div class="form-floating m-3">
-                            <textarea class="form-control" placeholder="Leave a comment here"
-                                id="floatingTextarea"></textarea>
-                            <label for="floatingTextarea">Comments</label>
+                    <div class="field2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                value="option1">
+                            <label class="form-check-label" for="inlineRadio1">분야</label>
                         </div>
-                        <button type="button" class="btn btn-success btn-sm" style="height: 50px">Success</button>
-                    </div>
-                    <div class="d-inline-flex flex-row align-items-center">
-                        <div class="form-floating m-3">
-                            <textarea class="form-control" placeholder="Leave a comment here"
-                                id="floatingTextarea"></textarea>
-                            <label for="floatingTextarea">Comments</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                value="option2">
+                            <label class="form-check-label" for="inlineRadio2">과목</label>
                         </div>
-                        <button type="button" class="btn btn-success btn-sm" style="height: 50px">Success</button>
                     </div>
+                    <button type="button" class="btn btn-success btn-sm field3 mt-2"
+                        style="height: 50px; width: 100px;">Create</button>
                 </div>
             </div>
         </div>
