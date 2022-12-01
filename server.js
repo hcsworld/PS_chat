@@ -5,6 +5,10 @@ const http = require('http');
 const fs = require("fs");
 const port = 8000
 
+let ID_PW_DATA = {}
+let CHAT_DATA = {}
+
+
 const app = express();
 const httpServer = http.createServer(app);
 const options = {
