@@ -31,49 +31,34 @@
                     </a>
                 </li>
             </ul>
-
         </div>
         <div class="main">
             <div class="header">
-                <div class="chat_room_name">과목: 오픈소스소프트웨어실습</div>
-                <div class="chat_room_desc">오픈소스소프트웨어실습 과목 익명 채팅방입니다.</div>
+                <div class="chat_room_name w-100">채팅방을 선택해주세요</div>
+                <!-- <div class="chat_room_desc">오픈소스소프트웨어실습 과목 익명 채팅방입니다.</div> -->
             </div>
-            <div class="chat_room_container">
-                <!-- <div class="chat_room_container"> -->
-                    <div class="chat_room">
-                        <div class="message_display">
-
-                            <div class="name_container">
-                                <span class="my_name">나</span>
-                            </div>
-
-                            <div class="message_container">
-                                <span class="my_message">안녕하세요!</span>
-                            </div>
-
-                            <div class="name_container">
-                                <span class="prof_name">교수 1</span>
-                            </div>
-
-                            <div class="message_container">
-                                <span class="prof_message">반갑습니다.</span>
-                            </div>
-                            
-                            <div class="name_container">
-                                <span class="student_name">학생 1</span>
-                            </div>
-
-                            <div class="message_container">
-                                <span class="student_message">이번 과제 제출 기한은 언제까지 인가요?</span>
-                            </div>
-                        </div>
-                        <div class="message_input">
-                            <!-- <input type="text"> -->
-                            <textarea id="message_typing_area" type="text" rows="1" cols="50"></textarea>
-                            <button class="btn btn-dark send_btn" id="send_btn">전송</button>
-                        </div>
+            <div class="main_container">
+                <div class="main_chatroom_bundles d-flex flex-row ">
+                    <div class="main_chatroom_bundle w-50" id="area_bundle">
+                        <div class="main_chatroom_bundle_name p-3" >분야</div>
+                        <ul  class="list-group">
+                            <a href="chat"><li class="list-group-item list-group-item-action">시스템</li></a>
+                            <a href="chat"><li class="list-group-item list-group-item-action">네트워크</li></a>
+                            <a href="chat"><li class="list-group-item list-group-item-action">인공지능</li></a>
+                            <a href="chat"><li class="list-group-item list-group-item-action">보안</li></a>
+                            <a href="chat"><li class="list-group-item list-group-item-action">HCI</li></a>
+                        </ul>
                     </div>
-                <!-- </div> -->
+                    <div class="main_chatroom_bundle w-50" id="subject_bundle">
+                        <div class="main_chatroom_bundle_name p-3">과목</div>
+                        <ul class="list-group">
+                            <a href="chat"><li class="list-group-item list-group-item-action">오픈소스소프트웨어실습</li></a>
+                            <a href="chat"><li class="list-group-item list-group-item-action">운영체제</li></a>
+                            <a href="chat"><li class="list-group-item list-group-item-action">알고리즘</li></a>
+                            <a href="chat"><li class="list-group-item list-group-item-action">프로그래밍언어</li></a>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- <script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI" crossorigin="anonymous"></script> -->
