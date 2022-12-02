@@ -14,6 +14,9 @@ const ROOM_NAME = 'room_name'
 const URL = "http://localhost:8000";
 const socket = io(URL + '/', { autoConnect: true });
 
+update_chat()
+
+
 const send_btn = document.querySelector("#send_btn")
 console.log(send_btn)
 send_btn.addEventListener("click", ()=> {
@@ -21,6 +24,7 @@ send_btn.addEventListener("click", ()=> {
     message = message_typing_area.value;
     if (message.length > 0) {
         socket.emit("hello", message)
+        socket.to()
     }
     message_typing_area.value = "";
 })

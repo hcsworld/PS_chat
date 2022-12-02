@@ -174,17 +174,20 @@ app.get('/main', (req, res) => {
 
 app.post('/join', (req, res) => {
     console.log('join')
-    console.log(req.body)
+    // console.log(req.body)
     let data = req.body
     let join_room_code = data.CODE
     let join_email = data.EMAIL
     let role = data.ROLE
-    console.log('USER_DATA:\n' + USER_DATA)
-    console.log('CHAT_ROOM_CODES:\n' + CHAT_ROOM_CODES)
+    console.log('USER_DATA:\n' + JSON.stringify(USER_DATA[join_email]))
+    console.log('CHAT_ROOM_CODES:\n' + JSON.stringify(CHAT_ROOM_CODES[join_room_code]))
+    console.log('Object.keys(USER_DATA[join_email].CHATROOM\n' + Object.keys(USER_DATA[join_email].CHATROOM))
+    console.log('CHAT_ROOM_CODES[join_room_code].NAME\n' + CHAT_ROOM_CODES[join_room_code].NAME)
 
-    if (Object.keys(CHAT_ROOM_CODES).includes(join_room_code)
-    || Object.keys(USER_DATA[join_email].CHATROOM).includes(CHAT_ROOM_CODES[join_room_code].NAME)) {
-        res.json(JSON.stringify({STATUS: 409}))
+    // code is not in CHAT_ROOM_CODES or current user already in chatroom
+    if (!Object.keys(CHAT_ROOM_CODES).includes(join_room_code) || 
+        Object.keys(USER_DATA[join_email].CHATROOM).includes(CHAT_ROOM_CODES[join_room_code].NAME)) {
+        res.json({STATUS: 409})
     }
     else {
         CHAT_ROOM_CODES[join_room_code].PROF_COUNT += (role === PROFESSOR ? 1 : 0)
@@ -198,7 +201,7 @@ app.post('/join', (req, res) => {
             STATUS: 200,
             VALUE: USER_DATA[join_email].CHATROOM
         }
-        res.json(JSON.stringify(data))
+        res.json(data)
 
     }
 
@@ -279,7 +282,8 @@ app.post('/chat', (req, res) => {
     let send_data = {
         ROLE : role,
         ID_NUM : id_num,
-        CHAT_DATA: chat_data
+        ROOM_NAME : room_name,
+        CHAT_DATA: chat_data,
     }
     res.json(send_data)
     
