@@ -48,7 +48,9 @@ let USER_DATA = {
     },
 }
 
-let CHAT_ROOM_NAMES = []
+let CHAT_ROOM_NAMES = {
+    '오픈소스소프트웨어실습' : 'code1'
+}
 
 let CHAT_ROOM_CODES = {
     'code1' : {
@@ -179,10 +181,10 @@ app.post('/join', (req, res) => {
     let join_room_code = data.CODE
     let join_email = data.EMAIL
     let role = data.ROLE
-    console.log('USER_DATA:\n' + JSON.stringify(USER_DATA[join_email]))
-    console.log('CHAT_ROOM_CODES:\n' + JSON.stringify(CHAT_ROOM_CODES[join_room_code]))
-    console.log('Object.keys(USER_DATA[join_email].CHATROOM\n' + Object.keys(USER_DATA[join_email].CHATROOM))
-    console.log('CHAT_ROOM_CODES[join_room_code].NAME\n' + CHAT_ROOM_CODES[join_room_code].NAME)
+    // console.log('USER_DATA:\n' + JSON.stringify(USER_DATA[join_email]))
+    // console.log('CHAT_ROOM_CODES:\n' + JSON.stringify(CHAT_ROOM_CODES[join_room_code]))
+    // console.log('Object.keys(USER_DATA[join_email].CHATROOM\n' + Object.keys(USER_DATA[join_email].CHATROOM))
+    // console.log('CHAT_ROOM_CODES[join_room_code].NAME\n' + CHAT_ROOM_CODES[join_room_code].NAME)
 
     // code is not in CHAT_ROOM_CODES or current user already in chatroom
     if (!Object.keys(CHAT_ROOM_CODES).includes(join_room_code) || 
@@ -241,7 +243,7 @@ app.post('/create', (req, res) => {
     let type = data.TYPE
     
     let res_data = {}
-    if (Object.keys(CHAT_ROOM_CODES).includes(code) || CHAT_ROOM_NAMES.includes(room_name)) {
+    if (Object.keys(CHAT_ROOM_CODES).includes(code) || Object.keys(CHAT_ROOM_NAMES).includes(room_name)) {
         res_data.STATUS = 409
     }
     else {
@@ -251,7 +253,7 @@ app.post('/create', (req, res) => {
             PROF_COUNT: 0 + (role === PROFESSOR ? 1 : 0),
             STUDENT_COUNT: 0 + (role === STUDENT ? 1 : 0),
         }
-        CHAT_ROOM_NAMES.push(room_name)
+        CHAT_ROOM_NAMES[room_name] = code
         CHAT_DATA[room_name] = []
         // console.log(JSON.stringify(USER_DATA[email]))
         USER_DATA[email].CHATROOM[room_name] = {
@@ -280,6 +282,7 @@ app.post('/chat', (req, res) => {
     let chat_data = CHAT_DATA[room_name]
     // console.log('chat_data :\n' + chat_data)
     let send_data = {
+        EMAIL: email,
         ROLE : role,
         ID_NUM : id_num,
         ROOM_NAME : room_name,
@@ -303,10 +306,46 @@ app.get('/chat', (req, res) => {
     });
 });
 
+app.post("/exit", (req, res) => {
+    console.log("exit, post")
+    
+    let data = req.body
+    let email = data.EMAIL
+    let room_name = data.ROOM_NAME
+    // console.log('email : '+ email)
+    // console.log('room_name : '+ room_name)
+
+    delete USER_DATA[email].CHATROOM[room_name]
+    res.json(USER_DATA[email].CHATROOM)
+})
+
+app.post("/log_out", (req, res) => {
+    console.log("log_out")
+
+    let data = req.body
+}
+
 // first connection on server
 io.on('connection', (socket) => {
-    socket.on("hello", (arg) => {
-        console.log('socket :\n' + socket + "\n" + arg)
+
+    socket.on("chat", (data) => {
+        console.log('data : ' + JSON.stringify(data))
+        let room_name = data.ROOM_NAME
+        let send_id_num = data.ID_NUM
+        let send_role = data.ROLE
+        let message = data.MESSAGE
+
+        console.log("room_name : " + room_name)
+
+        CHAT_DATA[room_name].push({
+            ROLE: send_role,
+            ID_NUM: send_id_num,
+            MESSAGE_DATA: message
+        })
+        io.emit("new_chat", {
+            ROOM_NAME: room_name,
+            CHAT_DATA: CHAT_DATA[room_name],
+        })
     })
 
     // socket.on("sign_up", (data, callback) => {

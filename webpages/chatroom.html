@@ -57,56 +57,29 @@
         <div class="container m-2">
             <h1>PS CHAT</h1>
         </div>
-        <div class="container">
-            <h3>For Student</h3>
-        </div>
         <li class="nav-item  m-1 mt-5">
             <a class="nav-link" href="/main">Talk</a>
         </li>
         <li class="nav-item m-1">
             <a class="nav-link" href="/create">Create</a>
         </li>
-        <li class="nav-item m-1">
-            <a class="nav-link" href="/log_out">Log out</a>
-        </li>
     </ul>
     <div class="container p-0" style="margin-left: 15%">
         <div>
             <div class="d-flex">
                 <h2 class="pt-5 ps-5">OSSP Chating Room</h2>
-                <button type="button" class="btn btn-success exit mt-5 ms-auto mb-2">Exit</button>
+                <button type="button" class="btn btn-success exit mt-5 ms-auto mb-2" id="exit_btn">Exit</button>
 
             </div>
-            <div class=" d-flex flex-column content m-0 bg-success bg-opacity-10">
+            <div class="d-flex flex-column content m-0 bg-success bg-opacity-10">
 
-                <div class="chatroom_container bg-white" id="message_box">
-                    <div class="m-3 flex-column">
-                        <div>
-                            학생 12
-                        </div>
-                        <div class="mt-1 bg-success bg-opacity-10 p-2 rounded-2" style="display:inline-block">
-                            안녕하세요
+                    <!-- <div class="chatroom_container bg-white overflow-auto" id="message_box"> -->
+                    <div class="chatroom_container bg-white" id="message_box_parent">
+                        <div class="w-100 h-100 overflow-auto" id="message_box">
                         </div>
                     </div>
-                    <div class="m-3 flex-column">
-                        <div>
-                            교수 1
-                        </div>
-                        <div class="mt-1 bg-success bg-opacity-10 p-2 rounded-2" style="display:inline-block">
-                            안녕하세요 ossp 수업에 오신것을 환영합니다.
-                        </div>
-                    </div>
-                    <div class="m-3 flex-column" style="float:right">
-                        <div style="text-align: right">
-                            나
-                        </div>
-                        <div class="mt-1 bg-success bg-opacity-50 p-2 rounded-2" style="display:inline-block">
-                            안녕하세요! 교수님.
-                        </div>
-                    </div>
-                </div>
                 <div class="align-self-end d-flex justify-content-center bg-white p-2" id="chat_room">
-                    <textarea id="message_typing_area" class="rounded-2" type="text"></textarea>
+                    <textarea id="message_typing_area" class="rounded-2" style="resize: none" type="text"></textarea>
                     <button class="btn btn-outline-success send_btn ms-1" id="send_btn">send</button>
                 </div>
             </div>
