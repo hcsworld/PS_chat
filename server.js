@@ -35,6 +35,27 @@ let ID_PW_DATA = {
     },
 }
 
+let USER_NUMBERS = {
+    'dlwns147' : {
+        '오픈소스소프트웨어' : {
+            type: 'subject',
+            number: 13,
+        },
+        '인공지능' : {
+            type: 'area',
+            number: 13,
+        },
+    }
+}
+
+let CHAT_ROOM_CODES = {
+    'code1' : {
+        name: '오픈소스소프트웨어',
+        prof_count: 0,
+        student_count: 0,
+    }
+}
+
 let CHAT_DATA = {
     'OSSP' : [
         {
@@ -82,8 +103,8 @@ const cookieConfig = {
     httpOnly: true, 
     maxAge: 1000 * 60 * 10,
     signed: true,
-    domain: '/',
-    secure: false, //changes secure
+    // domain: '/',
+    // secure: false, //changes secure
   };
   
 
@@ -139,6 +160,7 @@ app.post('/sign_up', (req, res) => {
             ROLE : new_role,
             CHAT_NUMS : {}
         }
+        USER_NUMBERS[new_email] = {}
 
     }
 })
@@ -150,37 +172,25 @@ app.post('/main', (req, res) => {
     let pw = data.PW
 
     if (Object.keys(ID_PW_DATA).includes(email) && ID_PW_DATA[email].PW === pw) {
-        // res.writeHead(200);
-        // res.writeHead(200, { "Content-Type": "text/html" });
-        res.cookie(EMAIL, email, cookieConfig);
-        // res.redirect('/main')
-        res.end();
+        console.log('ID and PW are corrects')
+        data = {
+            EMAIL: email,
+            ROLE: ID_PW_DATA[email].ROLE,
+            USER_NUMBERS: USER_NUMBERS[email],
+        }
+        res.json(data)
 
-        // fs.readFile(path.join(__dirname, 'webpages', 'main.html'), (error, data) => {
-        //     if (error) {
-        //         console.log(error);
-        //         return res.status(500).send("<h1>500 Error</h1>");
-        //     }
-        //     // res.set( "Content-Type", "text/html")
-        //     res.writeHead(200, { "Content-Type": "text/html" });
-            
-        //     res.cookie(EMAIL, email, cookieConfig);
-        //     res.end(data);
-        // });
     }
     else {
-        res.writeHead(409);
+        console.log('ID and PW are not corrects')
+        // res.writeHead(409);
+        res.send({})
         res.end();
     }
 })
 
 app.get('/main', (req, res) => {
     console.log('main')
-    // console.log(req)
-    console.log(req.cookies)
-    console.log(req.cookies[EMAIL])
-    // res.sendFile(__dirname + '/chatroom.html');
-    // res.sendFile(path.join(publicDirectoryPath, 'webpages', 'chatroom.html'));
 
     fs.readFile(path.join(__dirname, 'webpages', 'main.html'), (error, data) => {
         if (error) {
@@ -192,8 +202,30 @@ app.get('/main', (req, res) => {
     });
 });
 
-app.get('/chat', (req, res) => {
+app.post('/join', (req, res) => {
+    console.log('join')
+    console.log(req.body)
+    data = req.body
+    join_room_code = data.CODE
+    join_email = data.EMAIL
+    role = data.ROLE
+
+    if (Object.keys(USER_NUMBERS).includes(join_email)) {
+        // console.log(USER_NUMBERS[join_email])
+        // console.log(CHAT_ROOM_CODES[join_room_code].name)
+        // if (Object.keys(USER_NUMBERS[join_email]).includes(CHAT_ROOM_CODES[join_room_code].name)) {
+        //     CHAT_ROOM_CODES[join_room_code].role += 1
+        //     USER_NUMBERS[join_email]
+        //     data = {
+
+        //     }
+        // }
+    }
+})
+
+app.post('/chat', (req, res) => {
     console.log('chat')
+    console.log(req)
     // res.sendFile(__dirname + '/chatroom.html');
     // res.sendFile(path.join(publicDirectoryPath, 'webpages', 'chatroom.html'));
 
@@ -206,6 +238,20 @@ app.get('/chat', (req, res) => {
         res.end(data);
     });
 });
+// app.get('/chat', (req, res) => {
+//     console.log('chat')
+//     // res.sendFile(__dirname + '/chatroom.html');
+//     // res.sendFile(path.join(publicDirectoryPath, 'webpages', 'chatroom.html'));
+
+//     fs.readFile(path.join(__dirname, 'webpages', 'chatroom.html'), (error, data) => {
+//         if (error) {
+//             console.log(error);
+//             return res.status(500).send("<h1>500 Error</h1>");
+//         }
+//         res.writeHead(200, { "Content-Type": "text/html" });
+//         res.end(data);
+//     });
+// });
 
 // first connection on server
 io.on('connection', (socket) => {

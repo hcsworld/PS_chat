@@ -38,20 +38,23 @@ log_in_btn.addEventListener("click", (evt)=> {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                credentials : "include",
             },
             body: JSON.stringify(data),
-        }).then((response) => {
-            if (response.status === 200) {
-                fetch('/main', {
-                    method: 'GET', 
-                    credentials : "include",
-            })
+        }).then((response) => response.json())
+        .then((data) => {
+            // console.log('response:\n' + JSON.stringify(data))
+            // data = JSON.parse(data)
+            // console.log(data)
+            if (Object.keys(data).length !== 0) {
+                // console.log('response :\n' + response.json())
+                // console.log(response.body)
+                sessionStorage.setItem('user', JSON.stringify(data))
+                window.location.replace(URL + '/main')
             }
             else {
                 alert('Your email or password is wrong, or you are not registered!')
             }
-            console.log(response.status);
+            // console.log(response.status);
         });
     }
 })
