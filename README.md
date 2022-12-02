@@ -23,6 +23,9 @@
     - 이를 위해 socket.io와 Express.js를 이용
     - Bootstrap의 JS를 이용하여 기능을 구현하기도 했음. 
 
+## Youtube link
+https://youtu.be/5tDZeNR9mJk
+
 ## Links to Resource
 - [Express.js](https://expressjs.com/ko/)
 - [Socket.io](https://socket.io)
@@ -85,7 +88,6 @@ MIT license
 - Contstructive feedback
 - No trolling, insulting, harassment, etc.
 
-## Youtube link
 
 
 
