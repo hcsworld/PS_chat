@@ -28,6 +28,13 @@
 - [Socket.io](https://socket.io)
 - [Bootstrap](https://getbootstrap.kr)
 
+## installation & start
+    npm install skku_ps_chat
+    cd PS_chat
+    node app.js <-- server 시작
+
+    //다음으로 원하는 브라우저 실행 후 주소창에 localhost:8000/log_in 입력 후 접속
+
 ## Screenshot & how to use
 - 로그인 페이지
 <img src="./screenshot/login.png">
