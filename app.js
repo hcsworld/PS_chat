@@ -194,6 +194,14 @@ app.post('/join', (req, res) => {
     let role = data.ROLE
     console.log('USER_DATA:\n' + USER_DATA)
     console.log('CHAT_ROOM_CODES:\n' + CHAT_ROOM_CODES)
+join_email
+    if (Object.keys(CHAT_ROOM_CODES).includes(join_room_code)
+    || Object.keys(USER_DATA[join_email].CHATROOM).includes(CHAT_ROOM_CODES[join_room_code].name)) {
+
+    }
+    else {
+
+    }
 
     if (Object.keys(USER_DATA).includes(join_email)) {
         console.log(USER_DATA[join_email])

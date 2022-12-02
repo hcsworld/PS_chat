@@ -6,14 +6,31 @@ const PW = 'password'
 const ROLE = 'role'
 const STUDENT = 'student'
 const PROFESSOR = 'professor'
+const TYPE = 'type'
+const AREA = 'area'
+const SUBJECT = 'subject'
+
 let user = JSON.parse(sessionStorage.getItem('user'))
 let user_email = user.EMAIL
 let user_role = user.ROLE
 let user_chatroom = user.CHATROOM
 
-// console.log(user_email)
-// console.log(user_role)
-// console.log(user_room_num)
+for (room_name in Object.keys(user_chatroom)) {
+    let parent
+    console.log(room_name)
+    console.log(user_chatroom)
+    let type = user_chatroom[room_name].TYPE
+    let new_chatroom = document.createElement("button")
+    new_chatroom.className = "list-group-item list-group-item-action chatroom_btn"
+    new_chatroom.textContent = room_name
+    if (type === "AREA") {
+        parent = document.querySelector("#type_area")
+    }
+    else if (type === "subject") {
+        parent = document.querySelector("#type_subject")
+    }
+    parent.appendChild(new_chatroom)
+}
 
 const join_btn = document.querySelector("#join_btn")
 join_btn.addEventListener("click", (evt)=> {
