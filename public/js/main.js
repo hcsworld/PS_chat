@@ -87,6 +87,7 @@ join_btn.addEventListener("click", (evt)=> {
         })
         .then((response) => response.json())
         .then((data) => {
+            console.log('data.STATUS : ' + data.STATUS)
             if (data.STATUS === 200) {
                 user_info = sessionStorage.getItem('user')
                 let user = JSON.parse(sessionStorage.getItem('user'))
