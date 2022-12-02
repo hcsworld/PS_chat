@@ -319,11 +319,11 @@ app.post("/exit", (req, res) => {
     res.json(USER_DATA[email].CHATROOM)
 })
 
-app.post("/log_out", (req, res) => {
-    console.log("log_out")
+// app.post("/log_out", (req, res) => {
+//     console.log("log_out")
 
-    let data = req.body
-}
+//     let data = req.body
+// }
 
 // first connection on server
 io.on('connection', (socket) => {
