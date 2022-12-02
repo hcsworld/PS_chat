@@ -39,7 +39,13 @@ for (let room_name in user_chatroom) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
-        }).then()
+        }).then((response) => response.json())
+        .then((data) => {
+            // console.log('data:\n' + JSON.stringify(data))
+            sessionStorage.setItem("chatdata", JSON.stringify(data))
+            window.location.replace(URL + '/chat')
+            
+        })
     })
     if (type === AREA) {
         parent = document.querySelector("#type_area")

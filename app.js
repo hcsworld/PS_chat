@@ -68,25 +68,11 @@ let CHAT_DATA = {
         },
         
         {
-            ROLE : PROFESSOR,
+            ROLE : STUDENT,
             ID_NUM : 2,
             MESSAGE_DATA : 'Hello',
         }
     ],
-    
-    'OSSP' : [
-        {
-            ROLE : PROFESSOR,
-            ID_NUM : 35,
-            MESSAGE_DATA : 'Hi',
-        },
-        
-        {
-            ROLE : PROFESSOR,
-            ID_NUM : 2,
-            MESSAGE_DATA : 'Hello',
-        }
-    ]
 }
 
 const publicDirectoryPath = path.join(__dirname, 'public')
@@ -250,8 +236,9 @@ app.post('/create', (req, res) => {
             student_count: 0 + (role === STUDENT ? 1 : 0),
         }
         CHAT_ROOM_NAMES.push(room_name)
-        console.log(JSON.stringify(USER_DATA[email]))
-        USER_DATA[email].CHATROOM[code] = {
+        CHAT_DATA[room_name] = []
+        // console.log(JSON.stringify(USER_DATA[email]))
+        USER_DATA[email].CHATROOM[room_name] = {
             TYPE: type,
             NUMBER: (role === PROFESSOR ? CHAT_ROOM_CODES[code].prof_count : CHAT_ROOM_CODES[code].student_count)
         }
@@ -265,15 +252,24 @@ app.post('/create', (req, res) => {
 })
 
 app.post('/chat', (req, res) => {
-    console.log('chat')
-    console.log(req)
-    // res.sendFile(__dirname + '/chatroom.html');
-    // res.sendFile(path.join(publicDirectoryPath, 'webpages', 'chatroom.html'));
+    console.log('chat, post')
 
     let data = req.body
     let user_email = data.EMAIL
-    let room = data.ROOM_NAME
+    let room_name = data.ROOM_NAME
+
+    // console.log('user_email:\n' + user_email)
+    // console.log('room_name:\n' + room_name)
+    let chat_data = CHAT_DATA[room_name]
+    // console.log('chat_data :\n' + chat_data)
+    res.json(chat_data)
     
+});
+app.get('/chat', (req, res) => {
+    console.log('chat')
+    // res.sendFile(__dirname + '/chatroom.html');
+    // res.sendFile(path.join(publicDirectoryPath, 'webpages', 'chatroom.html'));
+
     fs.readFile(path.join(__dirname, 'webpages', 'chatroom.html'), (error, data) => {
         if (error) {
             console.log(error);
@@ -283,20 +279,6 @@ app.post('/chat', (req, res) => {
         res.end(data);
     });
 });
-// app.get('/chat', (req, res) => {
-//     console.log('chat')
-//     // res.sendFile(__dirname + '/chatroom.html');
-//     // res.sendFile(path.join(publicDirectoryPath, 'webpages', 'chatroom.html'));
-
-//     fs.readFile(path.join(__dirname, 'webpages', 'chatroom.html'), (error, data) => {
-//         if (error) {
-//             console.log(error);
-//             return res.status(500).send("<h1>500 Error</h1>");
-//         }
-//         res.writeHead(200, { "Content-Type": "text/html" });
-//         res.end(data);
-//     });
-// });
 
 // first connection on server
 io.on('connection', (socket) => {
