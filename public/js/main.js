@@ -85,18 +85,20 @@ join_btn.addEventListener("click", (evt)=> {
             },
             body: JSON.stringify(data),
         })
-        // .then((response) => response.json())
-        // .then((data) => {
-        //     if (data.status === 200) {
-        //         console.log(response)
-        //         localStorage.setItem('user', JSON.stringify(response))
-        //         window.location.replace(URL + '/main')
-        //     }
-        //     else {
-        //         alert('Code is wrong, or you are already joined the chatroom!')
-        //     }
-        //     console.log(response.status);
-        // });
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.STATUS === 200) {
+                user_info = sessionStorage.getItem('user')
+                let user = JSON.parse(sessionStorage.getItem('user'))
+                user.CHATROOM = data.VALUE
+                console.log('data.VALUE:\n' + data.VALUE)
+                sessionStorage.setItem('user', JSON.stringify(user))
+                window.location.replace(URL + '/main')
+            }
+            else {
+                alert('Code is wrong, or you are already joined the chatroom!')
+            }
+        });
         }
     }
 )

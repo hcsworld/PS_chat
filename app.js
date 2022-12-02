@@ -11,7 +11,6 @@ const PW = 'password'
 const ROLE = 'role'
 const STUDENT = 'student'
 const PROFESSOR = 'professor'
-const CHAT_NUMS = 'chat_nums'
 const ID_NUM = 'id_num'
 const MESSAGE_DATA = 'message_data'
 const TYPE = 'type'
@@ -53,9 +52,10 @@ let CHAT_ROOM_NAMES = []
 
 let CHAT_ROOM_CODES = {
     'code1' : {
-        name: '오픈소스소프트웨어',
-        prof_count: 0,
-        student_count: 0,
+        NAME: '오픈소스소프트웨어',
+        TYPE: SUBJECT,
+        PROF_COUNT: 0,
+        STUDENT_COUNT: 0,
     }
 }
 
@@ -181,19 +181,31 @@ app.post('/join', (req, res) => {
     let role = data.ROLE
     console.log('USER_DATA:\n' + USER_DATA)
     console.log('CHAT_ROOM_CODES:\n' + CHAT_ROOM_CODES)
-join_email
-    if (Object.keys(CHAT_ROOM_CODES).includes(join_room_code)
-    || Object.keys(USER_DATA[join_email].CHATROOM).includes(CHAT_ROOM_CODES[join_room_code].name)) {
 
+    if (Object.keys(CHAT_ROOM_CODES).includes(join_room_code)
+    || Object.keys(USER_DATA[join_email].CHATROOM).includes(CHAT_ROOM_CODES[join_room_code].NAME)) {
+        res.json(JSON.stringify({STATUS: 409}))
     }
     else {
+        CHAT_ROOM_CODES[join_room_code].PROF_COUNT += (role === PROFESSOR ? 1 : 0)
+        CHAT_ROOM_CODES[join_room_code].STUDENT_COUNT += (role === STUDENT ? 1 : 0)
+        let id_num = (role === PROFESSOR ? CHAT_ROOM_CODES[join_room_code].PROF_COUNT : CHAT_ROOM_CODES[join_room_code].STUDENT_COUNT)
+        USER_DATA[join_email].CHATROOM[CHAT_ROOM_CODES[join_room_code].NAME] = {
+            TYPE : CHAT_ROOM_CODES[join_room_code].TYPE,
+            NUMBER : id_num,
+        }
+        let data = {
+            STATUS: 200,
+            VALUE: USER_DATA[join_email].CHATROOM
+        }
+        res.json(JSON.stringify(data))
 
     }
 
     if (Object.keys(USER_DATA).includes(join_email)) {
         console.log(USER_DATA[join_email])
-        console.log(CHAT_ROOM_CODES[join_room_code].name)
-        // if (Object.keys(USER_DATA[join_email]).includes(CHAT_ROOM_CODES[join_room_code].name)) {
+        console.log(CHAT_ROOM_CODES[join_room_code].NAME)
+        // if (Object.keys(USER_DATA[join_email]).includes(CHAT_ROOM_CODES[join_room_code].NAME)) {
         //     CHAT_ROOM_CODES[join_room_code].role += 1
         //     USER_DATA[join_email]
         //     data = {
@@ -231,16 +243,17 @@ app.post('/create', (req, res) => {
     }
     else {
         CHAT_ROOM_CODES[code] = {
-            name: room_name,
-            prof_count: 0 + (role === PROFESSOR ? 1 : 0),
-            student_count: 0 + (role === STUDENT ? 1 : 0),
+            NAME: room_name,
+            TYPE : type,
+            PROF_COUNT: 0 + (role === PROFESSOR ? 1 : 0),
+            STUDENT_COUNT: 0 + (role === STUDENT ? 1 : 0),
         }
         CHAT_ROOM_NAMES.push(room_name)
         CHAT_DATA[room_name] = []
         // console.log(JSON.stringify(USER_DATA[email]))
         USER_DATA[email].CHATROOM[room_name] = {
             TYPE: type,
-            NUMBER: (role === PROFESSOR ? CHAT_ROOM_CODES[code].prof_count : CHAT_ROOM_CODES[code].student_count)
+            NUMBER: (role === PROFESSOR ? CHAT_ROOM_CODES[code].PROF_COUNT : CHAT_ROOM_CODES[code].STUDENT_COUNT)
         }
         res_data.STATUS = 200
         res_data.CHATROOM = USER_DATA[email].CHATROOM
@@ -255,14 +268,20 @@ app.post('/chat', (req, res) => {
     console.log('chat, post')
 
     let data = req.body
-    let user_email = data.EMAIL
+    let email = data.EMAIL
     let room_name = data.ROOM_NAME
 
-    // console.log('user_email:\n' + user_email)
-    // console.log('room_name:\n' + room_name)
+    let id_num = USER_DATA[email].CHATROOM[room_name].NUMBER
+    let role = USER_DATA[email].ROLE
+
     let chat_data = CHAT_DATA[room_name]
     // console.log('chat_data :\n' + chat_data)
-    res.json(chat_data)
+    let send_data = {
+        ROLE : role,
+        ID_NUM : id_num,
+        CHAT_DATA: chat_data
+    }
+    res.json(send_data)
     
 });
 app.get('/chat', (req, res) => {
