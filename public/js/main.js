@@ -9,24 +9,42 @@ const PROFESSOR = 'professor'
 const TYPE = 'type'
 const AREA = 'area'
 const SUBJECT = 'subject'
+const ROOM_NAME = 'room_name'
 
 let user = JSON.parse(sessionStorage.getItem('user'))
 let user_email = user.EMAIL
 let user_role = user.ROLE
 let user_chatroom = user.CHATROOM
 
-for (room_name in Object.keys(user_chatroom)) {
-    let parent
-    console.log(room_name)
+// console.log("Object.keys(user_chatroom):\n" + Object.keys(user_chatroom))
+for (let room_name in user_chatroom) {
+    // console.log(room_name)
     console.log(user_chatroom)
+    let parent
     let type = user_chatroom[room_name].TYPE
+    // console.log("type:\n" + type)
     let new_chatroom = document.createElement("button")
     new_chatroom.className = "list-group-item list-group-item-action chatroom_btn"
     new_chatroom.textContent = room_name
-    if (type === "AREA") {
+    new_chatroom.addEventListener("click", (evt) => {
+        evt.preventDefault()
+
+        let data = {
+            EMAIL : user_email,
+            ROOM_NAME : room_name
+        }
+        fetch("/chat", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).then()
+    })
+    if (type === AREA) {
         parent = document.querySelector("#type_area")
     }
-    else if (type === "subject") {
+    else if (type === SUBJECT) {
         parent = document.querySelector("#type_subject")
     }
     parent.appendChild(new_chatroom)

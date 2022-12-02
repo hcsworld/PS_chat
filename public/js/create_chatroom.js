@@ -22,7 +22,7 @@ create_btn.addEventListener("click", (evt)=> {
     let user_chatroom = user.USER_NUMBERS
     let room_name = document.querySelector("#room_name_text").value
     let code = document.querySelector("#code_text").value
-    let type = (document.querySelector("#room_type_area").checked ? TYPE : SUBJECT)
+    let type = (document.querySelector("#room_type_area").checked ? AREA : SUBJECT)
     if (room_name === "" || code === "") {
         alert("Please input room name or code!")
     }

@@ -18,6 +18,7 @@ const TYPE = 'type'
 const AREA = 'area'
 const SUBJECT = 'subject'
 const STATUS = 'status'
+const ROOM_NAME = 'room_name'
 
 let USER_DATA = {
 
@@ -269,6 +270,10 @@ app.post('/chat', (req, res) => {
     // res.sendFile(__dirname + '/chatroom.html');
     // res.sendFile(path.join(publicDirectoryPath, 'webpages', 'chatroom.html'));
 
+    let data = req.body
+    let user_email = data.EMAIL
+    let room = data.ROOM_NAME
+    
     fs.readFile(path.join(__dirname, 'webpages', 'chatroom.html'), (error, data) => {
         if (error) {
             console.log(error);
